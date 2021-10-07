@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 ```{r, include=FALSE}
 # Read in the choice questions
 library(tidyverse)
-survey <- read_csv("https://raw.githubusercontent.com/jhelvy/formr4conjoint/master/survey/choice_questions.csv")
+survey <- read_csv("https://raw.githubusercontent.com/zhaolululv/EMSE6065/main/6-conjoint-questions/choice_questions.csv")
 
 # Define the respondent ID
 respondentID <- sample(survey$respID, 1)
