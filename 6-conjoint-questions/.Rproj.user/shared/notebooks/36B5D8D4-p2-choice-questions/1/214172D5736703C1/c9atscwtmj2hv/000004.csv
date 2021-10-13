@@ -1,0 +1,10 @@
+"0","# Create the subset of rows for that respondent ID
+df <- survey %>%
+    filter(respID == respondentID) %>%
+    mutate(image = paste0(""https://raw.githubusercontent.com/zhaolululv/EMSE6065/main/6-conjoint-questions/images/"", image))
+"
+"2","Error: Problem with `mutate()` column `image`.
+[34mi[39m `image = paste0(...)`.
+[31mx[39m cannot coerce type 'closure' to vector of type 'character'
+[90mRun `rlang::last_error()` to see where the error occurred.[39m
+"
