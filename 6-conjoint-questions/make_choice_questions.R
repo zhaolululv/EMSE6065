@@ -77,5 +77,5 @@ head(survey_labeled)
 # head(survey_og) # preview
 
 # Save design
-write_csv(survey, here('choice_questions.csv'))
+write_csv(survey_labeled, here('choice_questions.csv'))
 
