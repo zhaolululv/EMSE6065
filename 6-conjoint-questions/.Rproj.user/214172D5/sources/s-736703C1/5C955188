@@ -3,7 +3,7 @@
     "path": "C:/Users/lujin/Desktop/EMSE6065/6-conjoint-questions/make_choice_questions.R",
     "project_path": "make_choice_questions.R",
     "type": "r_source",
-    "hash": "1351662575",
+    "hash": "0",
     "contents": "",
     "dirty": false,
     "created": 1634156198509.0,
@@ -12,15 +12,15 @@
     "properties": {
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "80,0",
-        "scrollLine": "54"
+        "cursorPosition": "75,0",
+        "scrollLine": "51"
     },
     "folds": "",
-    "lastKnownWriteTime": 1634157592,
+    "lastKnownWriteTime": 1634159010,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1634157592610,
+    "last_content_update": 1634159010599,
     "read_only": false,
     "read_only_alternatives": []
 }

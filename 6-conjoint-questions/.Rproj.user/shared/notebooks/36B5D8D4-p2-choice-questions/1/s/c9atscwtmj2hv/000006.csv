@@ -1,10 +1,10 @@
 "0","survey <- read_csv(""https://raw.githubusercontent.com/zhaolululv/EMSE6065/main/6-conjoint-questions/choice_questions.csv"")
 "
-"1","[1m[1mRows: [1m[22m[34m[34m8000[34m[39m [1m[1mColumns: [1m[22m[34m[34m14[34m[39m
+"1","[1m[1mRows: [1m[22m[34m[34m8000[34m[39m [1m[1mColumns: [1m[22m[34m[34m15[34m[39m
 "
 "1","[36m--[39m [1m[1mColumn specification[1m[22m [36m----------------------------------------------[39m
 [1mDelimiter:[22m "",""
-[31mchr[39m  (4): powertrain, brand, Warranty, ChargingStation
+[31mchr[39m  (5): powertrain, brand, Warranty, ChargingStation, image
 [32mdbl[39m (10): respID, qID, altID, obsID, price, modelyear, range, Mile...
 "
 "1","

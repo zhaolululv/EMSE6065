@@ -10,6 +10,7 @@ library(tidyverse)
 library(conjointTools)
 library(fastDummies)
 library(here)
+`%notin%` <- Negate(`%in%`)
 
 # Define the attributes and levels
 levels <- list(
@@ -46,7 +47,7 @@ head(doe) # preview
 # Make a labeld survey with "powertrain" as the label
 survey_labeled <- makeSurvey(
     doe       = doe,
-    nResp     = 1000,
+    nResp     = 10000,
     nAltsPerQ = 2,
     nQPerResp = 4,
     group     = "powertrain"
@@ -54,8 +55,13 @@ survey_labeled <- makeSurvey(
 head(survey_labeled) # preview
 
 survey_labeled <- dummy_cols(survey_labeled,"powertrain")
+wrong_doe <- survey_labeled %>% 
+    filter(brand=="Tesla"&powertrain=="Gas") %>% 
+    select(respID)
+wrong_respID <- unique(wrong_doe$respID )
+
 survey_labeled <- survey_labeled %>%
-  mutate(ChargingStation=ifelse(powertrain_Electric==1,ChargingStation,NA),
+  mutate(ChargingStation=ifelse(powertrain_Electric==1,ChargingStation,0),
          image = case_when(
              (powertrain=="Electric"&brand=="Nissan") ~ "Nissan_Leaf.jpg",
              powertrain=="Gas"&brand=="Nissan" ~ "Nissan_Gas.jpg",
@@ -63,7 +69,10 @@ survey_labeled <- survey_labeled %>%
              powertrain=="Gas"&brand=="Mercedes" ~ "MB_C300.jpg",
              brand=="Tesla" ~ "Tesla_Model_3.jpg"
              
-         ))
+         )) %>% 
+    filter(respID %notin% wrong_respID)
+
+
 head(survey_labeled)
 
 # Make a survey with outside good
