@@ -1,0 +1,62 @@
+---
+title: "p1-intro"
+author: Lujin Zhao, Ruchi Saraf, Huajie Zhu, Mohammad Khan, Joey Shonubi
+date: October 15, 2021
+output: 
+  html_document:
+    toc: true 
+    toc_float: true
+    number_sections: false
+    
+    
+---
+
+# Welcome to our survey!
+**Used Electric Vehicle Study**
+
+Welcome
+
+You are invited to take part in a research study being conducted by students in Engineering Management and Systems Engineering at The George Washington University.
+
+This survey would help us to learn extensively about user preferences between electric vehicles and possibly impact the future of the vehicle industry.
+
+Please read this form and ask us any questions that will help you decide if you want to be in the study. Taking part is completely voluntary and even if you decide you want to, you can quit at any time.
+
+
+
+---
+
+
+
+
+# Content form
+
+You are being invited to participate in a research study on the used electric vehicle market. This study is being done by  Huajei Zhu, Joye Shonubi ,  Lujin Zhao, Mohammed Khan and Ruchi Saraf who are students of The George Washington University.
+
+
+The purpose of this research study is to identify consumers' preferences on Used Electric Vehicles and make comparisons with traditional gas cars. If you agree to the terms and participate in this study , you will be asked to complete an online survey.
+
+
+By clicking "I agree" below , you are indicating that you are at least 18 years old, have read and understood this consent form and agree to participate in this research study
+
+* I agree to the terms and conditions
+* I disagree
+
+
+
+---
+
+
+
+
+# Eligibility questions for screening our ineligible respondents
+
+
+Are you want to buy a vehicle?
+
+* Yes, I want to buy a gas car
+* Yes, I want to buy a EV
+* No
+
+
+

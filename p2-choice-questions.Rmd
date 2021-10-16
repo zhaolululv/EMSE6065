@@ -1,0 +1,146 @@
+---
+output: html_document
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse   = TRUE,
+  warning    = FALSE,
+  message    = FALSE,
+  comment    = "#>",
+  fig.path   = "man/figures/",
+  fig.retina = 3
+)
+```
+
+```{r, include=FALSE}
+# Read in the choice questions
+library(tidyverse)
+survey <- read_csv("https://raw.githubusercontent.com/zhaolululv/EMSE6065/main/6-conjoint-questions/choice_questions.csv")
+
+# Define the respondent ID
+respondentID <- sample(survey$respID, 1)
+
+# Create the subset of rows for that respondent ID
+df <- survey %>%
+    filter(respID == respondentID) %>%
+    mutate(image = paste0("https://raw.githubusercontent.com/zhaolululv/EMSE6065/main/6-conjoint-questions/images/", image))
+
+# Convert df to json
+df_json <- jsonlite::toJSON(df)
+```
+
+# Great work! 
+Now that you've shared a bit about yourself, we'd like you to consider a shopping scenario in which you can choose some apples to purchase from a set of apples with different attributes.
+Let's learn about these attributes:
+
+### Price
+refers to the price to buy this car
+
+### Mileage
+It refers to how much the car has been driven
+
+### Model Year
+It is the year when car was manufactured
+
+### Brand
+Shows the brand of this car
+
+### Range
+Its the number of miles a car can drive in one complete charge.
+
+### Warranty
+Is whether the car comes with a warranty or not
+
+### Charging Station
+Is whether dealer offers a free home charging port when you buy the car
+
+### Fast Recharge
+This entails that the car can be charged faster than its normal charging time
+
+
+We will show five different types of apples:
+
+Nissan Leaf | Nissan Gas Car | Tesla | Mercedes Gas Car | Mercedes EQ
+-----|------|------------|-----------|--------------
+<img src="https://raw.githubusercontent.com/zhaolululv/EMSE6065/main/6-conjoint-questions/images/Nissan_Leaf.jpg" width=100> |<img src="https://raw.githubusercontent.com/zhaolululv/EMSE6065/main/6-conjoint-questions/images/Nissan_Gas.jpg" width=100> | <img src="https://raw.githubusercontent.com/zhaolululv/EMSE6065/main/6-conjoint-questions/images/Tesla_Model_3.jpg" width=100> | <img src="https://raw.githubusercontent.com/zhaolululv/EMSE6065/main/6-conjoint-questions/images/MB_C300.jpg" width=100> | <img src="https://raw.githubusercontent.com/zhaolululv/EMSE6065/main/6-conjoint-questions/images/MB_EQ.jpg" width=100>
+
+---
+
+We'll now begin the choice tasks. On the next few pages we will show you three options of apples and we'll ask you to choose the one you most prefer. 
+
+For example, if these were the only apples available, which would you choose?
+
+[mc_button type question with the following three options]
+
+**Option 1**
+
+<img src="https://raw.githubusercontent.com/zhaolululv/EMSE6065/main/6-conjoint-questions/images/Nissan_Gas.jpg" width=100>
+
+**Price**:  $ 10,000
+**Mileage**: 24,000
+**ModelYear**: 2017
+**brand**:  Nissan
+**range**:  400
+**Warranty**:  Yes
+**Charging Station**: NA
+
+**Option 2**
+
+<img src="https://raw.githubusercontent.com/zhaolululv/EMSE6065/main/6-conjoint-questions/images/Tesla_Model_3.jpg" width=100>
+
+**Price**:  $ 30,000
+**Mileage**: 14,000
+**ModelYear**: 2019
+**brand**:  Tesla
+**range**:  300
+**Warranty**:  No
+**Charging Station**: Yes
+
+---
+
+# Great work!
+
+We will now show you 8 sets of choice questions starting on the next page.
+
+---
+
+[mc_button type question with the following three options]
+
+(1 of 8) If these were your only options, which would you choose?
+
+```{r, include=FALSE}
+library(dplyr)
+alts <- jsonlite::fromJSON(df_json) %>% 
+  filter(qID == 1)
+alt1 <- alts %>% filter(altID == 1)
+alt2 <- alts %>% filter(altID == 2)
+```
+
+**Option 1**
+
+<img src=`r alt1$image` width=100>
+
+**Price**:  `r alt1$price` 
+**Mileage**: `r alt1$Mileage` 
+**ModelYear**: `r alt1$modelyear`
+**brand**:  `r alt1$brand` 
+**range**:  `r alt1$range`
+**Warranty**:  `r alt1$Warranty`
+**Charging Station**: `r alt1$ChargingStation`
+
+**Option 2**
+
+<img src=`r alt2$image` width=100>
+
+**Price**: $ `r alt2$price` 
+**Mileage**: `r alt2$Mileage` 
+**ModelYear**: `r alt2$modelyear`
+**brand**:  `r alt2$brand` 
+**range**:  `r alt2$range`
+**Warranty**:  `r alt2$Warranty`
+**Charging Station**: `r alt2$ChargingStation` 
+
+
+
+
