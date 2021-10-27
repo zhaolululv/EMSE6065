@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 ```{r, include=FALSE}
 # Read in the choice questions
 library(tidyverse)
-survey <- read_csv("https://raw.githubusercontent.com/zhaolululv/EMSE6065/main/6-conjoint-questions/choice_questions.csv")
+survey <- read_csv("https://raw.githubusercontent.com/zhaolululv/EMSE6065/main/hoice_questions.csv")
 
 # Define the respondent ID
 respondentID <- sample(survey$respID, 1)
@@ -24,7 +24,7 @@ respondentID <- sample(survey$respID, 1)
 # Create the subset of rows for that respondent ID
 df <- survey %>%
     filter(respID == respondentID) %>%
-    mutate(image = paste0("https://raw.githubusercontent.com/zhaolululv/EMSE6065/main/6-conjoint-questions/images/", image))
+    mutate(image = paste0("https://raw.githubusercontent.com/zhaolululv/EMSE6065/main/images/", image))
 
 # Convert df to json
 df_json <- jsonlite::toJSON(df)
@@ -63,7 +63,7 @@ We will show five different types of apples:
 
 Nissan Leaf | Nissan Gas Car | Tesla | Mercedes Gas Car | Mercedes EQ
 -----|------|------------|-----------|--------------
-<img src="https://raw.githubusercontent.com/zhaolululv/EMSE6065/main/6-conjoint-questions/images/Nissan_Leaf.jpg" width=100> |<img src="https://raw.githubusercontent.com/zhaolululv/EMSE6065/main/6-conjoint-questions/images/Nissan_Gas.jpg" width=100> | <img src="https://raw.githubusercontent.com/zhaolululv/EMSE6065/main/6-conjoint-questions/images/Tesla_Model_3.jpg" width=100> | <img src="https://raw.githubusercontent.com/zhaolululv/EMSE6065/main/6-conjoint-questions/images/MB_C300.jpg" width=100> | <img src="https://raw.githubusercontent.com/zhaolululv/EMSE6065/main/6-conjoint-questions/images/MB_EQ.jpg" width=100>
+<img src="https://raw.githubusercontent.com/zhaolululv/EMSE6065/main/images/Nissan_Leaf.jpg" width=100> |<img src="https://raw.githubusercontent.com/zhaolululv/EMSE6065/main/images/Nissan_Gas.jpg" width=100> | <img src="https://raw.githubusercontent.com/zhaolululv/EMSE6065/main/images/Tesla_Model_3.jpg" width=100> | <img src="https://raw.githubusercontent.com/zhaolululv/EMSE6065/main/images/MB_C300.jpg" width=100> | <img src="https://raw.githubusercontent.com/zhaolululv/EMSE6065/main/images/MB_EQ.jpg" width=100>
 
 ---
 
@@ -75,7 +75,7 @@ For example, if these were the only apples available, which would you choose?
 
 **Option 1**
 
-<img src="https://raw.githubusercontent.com/zhaolululv/EMSE6065/main/6-conjoint-questions/images/Nissan_Gas.jpg" width=100>
+<img src="https://raw.githubusercontent.com/zhaolululv/EMSE6065/main/images/Nissan_Gas.jpg" width=100>
 
 **Price**:  $ 10,000
 **Mileage**: 24,000
@@ -87,7 +87,7 @@ For example, if these were the only apples available, which would you choose?
 
 **Option 2**
 
-<img src="https://raw.githubusercontent.com/zhaolululv/EMSE6065/main/6-conjoint-questions/images/Tesla_Model_3.jpg" width=100>
+<img src="https://raw.githubusercontent.com/zhaolululv/EMSE6065/main/images/Tesla_Model_3.jpg" width=100>
 
 **Price**:  $ 30,000
 **Mileage**: 14,000
