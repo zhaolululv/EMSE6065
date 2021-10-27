@@ -56,9 +56,9 @@ head(survey_labeled) # preview
 survey_labeled <- dummy_cols(survey_labeled,"powertrain")
 
 survey_labeled <- survey_labeled %>%
-  mutate(ChargingStation=ifelse(powertrain_Electric==1,ChargingStation,0),
-         range=ifelse(powertrain_Electric==1,range,0),
-         fuelEconomy=ifelse(powertrain_Electric==0,fuelEconomy,0))
+  mutate(ChargingStation=ifelse(powertrain_Electric==1,ChargingStation,NA),
+         range=ifelse(powertrain_Electric==1,range,NA),
+         fuelEconomy=ifelse(powertrain_Electric==0,fuelEconomy,NA))
 
 
 head(survey_labeled)

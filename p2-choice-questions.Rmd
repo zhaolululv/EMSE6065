@@ -16,15 +16,15 @@ knitr::opts_chunk$set(
 ```{r, include=FALSE}
 # Read in the choice questions
 library(tidyverse)
-survey <- read_csv("https://raw.githubusercontent.com/zhaolululv/EMSE6065/main/hoice_questions.csv")
+survey <- read_csv("https://raw.githubusercontent.com/zhaolululv/EMSE6065/main/choice_questions.csv")
 
 # Define the respondent ID
 respondentID <- sample(survey$respID, 1)
 
 # Create the subset of rows for that respondent ID
 df <- survey %>%
-    filter(respID == respondentID) %>%
-    mutate(image = paste0("https://raw.githubusercontent.com/zhaolululv/EMSE6065/main/images/", image))
+    filter(respID == respondentID)
+    # mutate(image = paste0("https://raw.githubusercontent.com/zhaolululv/EMSE6065/main/images/", image))
 
 # Convert df to json
 df_json <- jsonlite::toJSON(df)
@@ -59,11 +59,9 @@ Is whether dealer offers a free home charging port when you buy the car
 This entails that the car can be charged faster than its normal charging time
 
 
-We will show five different types of apples:
-
-Nissan Leaf | Nissan Gas Car | Tesla | Mercedes Gas Car | Mercedes EQ
------|------|------------|-----------|--------------
-<img src="https://raw.githubusercontent.com/zhaolululv/EMSE6065/main/images/Nissan_Leaf.jpg" width=100> |<img src="https://raw.githubusercontent.com/zhaolululv/EMSE6065/main/images/Nissan_Gas.jpg" width=100> | <img src="https://raw.githubusercontent.com/zhaolululv/EMSE6065/main/images/Tesla_Model_3.jpg" width=100> | <img src="https://raw.githubusercontent.com/zhaolululv/EMSE6065/main/images/MB_C300.jpg" width=100> | <img src="https://raw.githubusercontent.com/zhaolululv/EMSE6065/main/images/MB_EQ.jpg" width=100>
+<!-- Nissan Leaf | Nissan Gas Car | Tesla | Mercedes Gas Car | Mercedes EQ -->
+<!-- -----|------|------------|-----------|-------------- -->
+<!-- <img src="https://raw.githubusercontent.com/zhaolululv/EMSE6065/main/images/Nissan_Leaf.jpg" width=100> |<img src="https://raw.githubusercontent.com/zhaolululv/EMSE6065/main/images/Nissan_Gas.jpg" width=100> | <img src="https://raw.githubusercontent.com/zhaolululv/EMSE6065/main/images/Tesla_Model_3.jpg" width=100> | <img src="https://raw.githubusercontent.com/zhaolululv/EMSE6065/main/images/MB_C300.jpg" width=100> | <img src="https://raw.githubusercontent.com/zhaolululv/EMSE6065/main/images/MB_EQ.jpg" width=100> -->
 
 ---
 
@@ -75,27 +73,38 @@ For example, if these were the only apples available, which would you choose?
 
 **Option 1**
 
-<img src="https://raw.githubusercontent.com/zhaolululv/EMSE6065/main/images/Nissan_Gas.jpg" width=100>
+<!-- <img src="https://raw.githubusercontent.com/zhaolululv/EMSE6065/main/images/Nissan_Gas.jpg" width=100> -->
 
 **Price**:  $ 10,000
 **Mileage**: 24,000
 **ModelYear**: 2017
-**brand**:  Nissan
+**powertrain**: Electric
 **range**:  400
+**MPG**: NA
 **Warranty**:  Yes
-**Charging Station**: NA
+**Charging Station Promotion**: Free
 
 **Option 2**
-
-<img src="https://raw.githubusercontent.com/zhaolululv/EMSE6065/main/images/Tesla_Model_3.jpg" width=100>
 
 **Price**:  $ 30,000
 **Mileage**: 14,000
 **ModelYear**: 2019
-**brand**:  Tesla
-**range**:  300
+**powertrain**: Gas
+**range**:  NA
+**MPG**: 25
 **Warranty**:  No
-**Charging Station**: Yes
+**Charging Station Promotion**: NA
+
+**Option 3**
+
+**Price**:  $ 30,000
+**Mileage**: 14,000
+**ModelYear**: 2019
+**powertrain**: Electric
+**range**:  300
+**MPG**: NA
+**Warranty**:  No
+**Charging Station Promotion**: No Promotion
 
 ---
 
@@ -107,7 +116,7 @@ We will now show you 8 sets of choice questions starting on the next page.
 
 [mc_button type question with the following three options]
 
-(1 of 8) If these were your only options, which would you choose?
+(1 of 4) If these were your only options, which would you choose?
 
 ```{r, include=FALSE}
 library(dplyr)
@@ -115,31 +124,41 @@ alts <- jsonlite::fromJSON(df_json) %>%
   filter(qID == 1)
 alt1 <- alts %>% filter(altID == 1)
 alt2 <- alts %>% filter(altID == 2)
+alt3 <- alts %>% filter(altID == 3)
 ```
 
 **Option 1**
 
-<img src=`r alt1$image` width=100>
-
-**Price**:  `r alt1$price` 
+**Price**:  \$`r alt1$price` 
 **Mileage**: `r alt1$Mileage` 
 **ModelYear**: `r alt1$modelyear`
-**brand**:  `r alt1$brand` 
-**range**:  `r alt1$range`
+**Powertrain**: `r alt1$powertrain`
+**Range**:  `r alt1$range`
+**MPG**: `r alt1$fuelEconomy`
 **Warranty**:  `r alt1$Warranty`
-**Charging Station**: `r alt1$ChargingStation`
+**Charging Station Promotion**: `r alt1$ChargingStation`
 
 **Option 2**
 
-<img src=`r alt2$image` width=100>
-
-**Price**: $ `r alt2$price` 
+**Price**: \$`r alt2$price` 
 **Mileage**: `r alt2$Mileage` 
 **ModelYear**: `r alt2$modelyear`
-**brand**:  `r alt2$brand` 
-**range**:  `r alt2$range`
+**Powertrain**: `r alt2$powertrain`
+**Range**:  `r alt2$range`
+**MPG**: `r alt2$fuelEconomy`
 **Warranty**:  `r alt2$Warranty`
-**Charging Station**: `r alt2$ChargingStation` 
+**Charging Station Promotion**: `r alt2$ChargingStation`
+
+**Option 3**
+
+**Price**: \$`r alt3$price` 
+**Mileage**: `r alt3$Mileage` 
+**ModelYear**: `r alt3$modelyear`
+**Powertrain**: `r alt3$powertrain`
+**Range**:  `r alt3$range`
+**MPG**: `r alt3$fuelEconomy`
+**Warranty**:  `r alt3$Warranty`
+**Charging Station Promotion**: `r alt3$ChargingStation`
 
 
 
