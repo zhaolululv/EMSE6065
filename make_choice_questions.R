@@ -14,7 +14,7 @@ library(here)
 
 # Define the attributes and levels
 levels <- list(
-  price       = seq(5000,50000,1000),   # Price ($1,000)
+  price       = seq(10000,50000,1000),   # Price ($1,000)
   fuelEconomy = seq(15,35,5),   # Fuel economy (mpg)
   modelyear   = seq(2015,2020,1),
   powertrain  = c("Gas", "Electric"), 
