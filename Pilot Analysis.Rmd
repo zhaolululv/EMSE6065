@@ -1,0 +1,351 @@
+---
+title: "Pilot Analysis"
+author: "Huajie Zhu, Mohammad Khan, Ruchi Saraf, Joey Shonubi, Lujin Zhao"
+date: "11/7/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  collapse   = TRUE,
+  warning    = FALSE,
+  message    = FALSE,
+  comment    = "#>",
+  fig.retina = 3
+)
+
+library(tidyverse)
+survey <- read_csv("https://raw.githubusercontent.com/zhaolululv/EMSE6065/main/choice_questions.csv")
+
+# Define the respondent ID
+respondentID <- sample(survey$respID, 1)
+
+# Create the subset of rows for that respondent ID
+df <- survey %>%
+    filter(respID == respondentID)
+    # mutate(image = paste0("https://raw.githubusercontent.com/zhaolululv/EMSE6065/main/images/", image))
+
+# Convert df to json
+df_json <- jsonlite::toJSON(df)
+
+library(dplyr)
+alts <- jsonlite::fromJSON(df_json) %>% 
+  filter(qID == 1)
+alt1 <- alts %>% filter(altID == 1)
+alt2 <- alts %>% filter(altID == 2)
+alt3 <- alts %>% filter(altID == 3)
+```
+
+# Abstract
+
+In our study, the Used Electric Vehicle market is what we are interested in. On Comparing with a conventional vehicle or a gas car, we would like to know what are consumers' preferences on Used Electric Vehicle. Unlike a new car, used car has following attributes that are unique
+
+1. Mileage
+2. Model Year
+3. No incentives
+
+Some of those attributes affect a used EV's battery life and reliability, which does not happen in the case of a gas car. As a result, we would like to know how consumers make decisions based on those variables and what their preferences are.
+
+# Intro
+
+The share of the EV second-hand market in the second-hand car market is getting hotter and hotter. The sales of electrified vehicles are developing so fast—jumping from 4.8% of the market in the first quarter of 2020 to 7.8% in the same period of 2021. 
+
+Used electric vehicle marketing is gaining more attention as people are realizing its benefits in comparison to the cars on gas. In this project we are targeting the people who are interested in buying an electric vehicle and inclined to buy a used car. Our focus is to create and analyze data sets to give facts and help individuals make decisions. 
+
+If we look at the current US market it can be seen people are generally more inclined to buy used cars in comparison to new vehicles. As seen 14% of sales are new cars in comparison where 39% are buying used cars.  (U.S. new and used car sales )
+
+
+Currently many incentives are given by the public sector and private sector on used and new EV’s to reduce carbon emission. One of the private sector companies pays its employees \$2000 if they opt in to buy an electric vehicle if they have worked for the company for at least one year.
+
+Our main focus is to look into used EV vs the normal gas car and compare and capture insights by doing a survey of what is the thought process of people living in the Washington, DC region.
+
+Some of the studies have shown that if some sort of incentive or rebate is given it really has an effect on the customer's decisions , especially if the customer is considered between a low to average income household.(Legislators propose \$2,500 federal tax credit ) One of the things we can’t quantify is the features coming in with used EV so that’s one area we can't incentives the customer.
+
+Looking into the behavior of our stakeholder i.e potential used EV buyers would give us a comprehensive insight on how generally used EV is perceived by the general public and what this market would be like in the near future.
+
+Out of scope is the market for new EV for this current project since we won't be asking our stakeholder anything related to the new EV in the survey. The reason for this is to just focus on the used EV market vs the gas cars. Looking into new EV’s won’t be beneficial since there are a lot of options on how a customer can customise their car and in comparison it's not possible to do that in used EV’s.
+
+
+# Survey Design
+
+There are two eligibility requirements in our design choices. The first is whether the survey subject is over 18 years old. The second requirement is to finish understanding the above information. Our project is about the purchase of used vehicles, where people over 18 years old have spending power, and by reading the information, the respondent has a basic idea of the direction of the survey. 
+
+We only collect two pieces of information that interviewees live in the DMV area or not and the current zip code at the beginning. These two pieces of information were collected to determine whether the interviewees lived in a DMV area. Our survey was limited to the DMV area. Our interview population was also limited to people living in the DMV area. We also asked interviewees if they had any intention of purchasing a vehicle in the next six months. If yes it would meet our interview requirements because the price of the vehicle is time sensitive.
+
+At the end of the survey, we will ask six more questions, if the interviewer finished our survey.  We will use it for analyzing our survey data. Five questions that “In what year were you born?”, “How many cars are currently present in your household?”, “ Do you currently or have you owned an electric vehicle?” , “What is your current gender identity?”, “I identify my race as” , and “What is your annual household income (from all sources) before taxes and other deductions from pay?”. If the interviewees are not part of our interview scope, they will not see these questions.
+
+We provided educational material about the vehicle’s functions, such as “Price”, “Mileage”, “Model Year”, “Brand”, “Range”, “Warranty”, “Charging Station”, and “Fast Recharge”. The “Price” refers to the price to buy this car. The “Mileage” that it refers to is how much the car has been driven. The “Model Year” that it is the year when the car was manufactured. The “Brand” shows the brand of this car. The “Range” that it’s the number of miles a car can drive in one complete charge. The “Warranty” is whether the car comes with a warranty or not. The “Charging Station” is whether the dealer offers a free home charging port when you buy the car. The “Fast Recharge” that the car can be charged faster than its normal charging time
+
+The price range is from \$5,000 to \$50,000. The “FuelEconomy” range is from 5 mpg to 35 mpg. The “modelyear” is from 2015 to 2020. The “powertrain” has two options: “Gas” and “Electric”. The “Warranty” has two options: “Yes” and “No”. The EV driving range is from 100 to 250. The “Mileage” range is from 1,000 to 50,000. For the “Charging Station”, we give three options: “Free”, “Discounted”, and “No Promotion”. We tried to make each option reasonable. For example, a 2020 car can't have driven 50,000 miles, and the smaller the modelyear (new vehicle), the cheaper the car is unlikely to be. We need to rationalize all the elements inside each option and balance it.
+
+# Pilot Data Analysis
+
+For our pilot data analysis, we have focused on the people living within the DMV area. Thus far we have collected 14 surveys. The survey included a total of four questions with one section for feedback which is compulsory for the referee to take. Our target population is the one who live in the DMV area. Whether the participant wants to buy a car or not is not necessary at this point, but we collect their status on this issue. We gather data around what is the age of the person, what is their income and how many cars they have in their household. Looking at these options we should be able to give out a comprehensive analysis on the used EV car market.
+
+## Data Cleaning
+
+We are looking forward to doing analysis on the data that is filled by the people who have taken the survey with utmost attention and dedication. In order to make sure that we get the right data there are a couple of filters that we made our data go through. Please find them as under:
+
+1.	Eliminate the survey’s which have been done in less than one minute.
+2.	Eliminate the survey with suspicious feedback.
+3.	Filter out the surveys in which options selected looks contradictory.
+
+Removing the above-mentioned rejected responses from our survey would give us the ability to predict an actual around the scope of our project i.e whether our stakeholders really want to buy a used EV in comparison to a used gas car. Based on this we can extend our analysis to build a model.
+
+## Modeling
+
+The utility mode is constructed as the following. 
+
+$U_{ij}=\beta_1price_j+\beta_2fuel\_econ_j+\beta_3model\_year_j+\beta_4gas_j+\beta_5have\_warranty_j+\beta_6range_j+\beta_7mileage_j+\beta_8free\_cs_j+\beta_9no\_cs_j+\epsilon_{ij}$
+
+where $free\_cs_j$ and $no\_cs_j$ are dummies for free charging station and no promotion for charging station respectively. 
+
+The preliminary estimation result is presented in the following table:
+
+<img src="/Users/lujinzhao/coding_file/github/EMSE6065/estimation.png">
+
+From the chart, we see the parameters are having expected signs. $price$ is showing a negative sign which is consistent with consumer's behavior pattern. $free\_cs$ is showing a positive sign which means participants are welcoming promotions and it is also consistent with our expectations. However, $mileage$, $modelyear$, $warranty$ and $no\_cs$ is not showing the expected signs and we believe this is partially due to the sample size we have at this moment. 
+
+The uncertainty we have is significantly large giving the small sample size currently we hold. The estimation chart with uncertainty band is presented in the following chart:
+
+<img src="/Users/lujinzhao/coding_file/github/EMSE6065/estimation_result.png">
+
+We can see that the uncertainty band is wide for most estimators and almost none of them are statistically significant. It is a surprise that Have Warranty is already significant at 1% level and free charging station is almost significant at 5% level. Clearly, more data is required and we conducted power analysis to determine the number of participants we need for this study. The result of power analysis is presented at the following chart:
+
+<img src="/Users/lujinzhao/coding_file/github/EMSE6065/power_analysis.png">
+
+The sample size that gives us the optimal results is 5000 with a specific degree of confidence. The probability is within acceptable range which allows us to continue with the experiment.
+
+# Change to Final Survey
+
+We noticed that our doe contains some unreasonable situations such as a 1 year used car with 50k miles and 5 year car with 5k miles. This kind of extreme cases need to be fixed and we will make sure the mileage are within a reasonable range according to the model year. Besides that, we also increased the minimum price and mileage to \$10,000 and 5,000 from \$5,000 and 1,000 respectively. They are now both increasing in a 5,000 increment instead of 1,000 increment. In this way, we could significantly reduce the total number of doe under a full factorial design. We are also planning to increase the minimum EV range from (100,250) to (200,400) interval, which is much reasonable representation of current EVs' specification. 
+
+We also noticed the chart we have is very misleading for some participants. Showing a Tesla image and put only 200 miles in the range attribute is inconsistent for participants who are familiar with EVs. To achieve the generality of the estimation result, we will exclude the image and only present attributes in text. To account for the endogeneity of our model, we will ask the participants to assume all cars are a black sedan in a good condition. 
+
+However, we understand the limitation in ways to distribute our survey and since we are having a very specific geographic requirement on out participants, we will not get sufficient observations suggested by the power analysis. What we will do is increase the number of questions that each participant have to answer so we could get the error bar narrower. 
+
+# Appendix
+
+## Welcome to our survey!
+**Used Electric Vehicle Study**
+
+Welcome
+
+You are invited to take part in a research study being conducted by students in Engineering Management and Systems Engineering at The George Washington University.
+
+This survey would help us to learn extensively about user preferences between electric vehicles and possibly impact the future of the vehicle industry.
+
+Please read this form and ask us any questions that will help you decide if you want to be in the study. Taking part is completely voluntary and even if you decide you want to, you can quit at any time.
+
+
+
+---
+
+
+
+
+## Content form
+
+You are being invited to participate in a research study on the used electric vehicle market. This study is being done by  Huajei Zhu, Joye Shonubi ,  Lujin Zhao, Mohammed Khan and Ruchi Saraf who are students of The George Washington University.
+
+
+The purpose of this research study is to identify consumers' preferences on Used Electric Vehicles and make comparisons with traditional gas cars. If you agree to the terms and participate in this study , you will be asked to complete an online survey.
+
+
+By clicking "I agree" below , you are indicating that you are at least 18 years old, have read and understood this consent form and agree to participate in this research study
+
+* I agree to the terms and conditions
+* I disagree
+
+
+
+---
+
+
+
+
+## Eligibility questions for screening our ineligible respondents
+
+
+Are you want to buy a vehicle?
+
+* Yes, I want to buy a gas car
+* Yes, I want to buy a EV
+* No
+
+## Great work! 
+Now that you've shared a bit about yourself, we'd like you to consider a shopping scenario in which you can choose some apples to purchase from a set of apples with different attributes.
+Let's learn about these attributes:
+
+### Price
+refers to the price to buy this car
+
+### Mileage
+It refers to how much the car has been driven
+
+### Model Year
+It is the year when car was manufactured
+
+### Brand
+Shows the brand of this car
+
+### Range
+Its the number of miles a car can drive in one complete charge.
+
+### Warranty
+Is whether the car comes with a warranty or not
+
+### Charging Station
+Is whether dealer offers a free home charging port when you buy the car
+
+### Fast Recharge
+This entails that the car can be charged faster than its normal charging time
+
+---
+
+## Practice Question
+
+We'll now begin the choice tasks. On the next few pages we will show you three options of apples and we'll ask you to choose the one you most prefer. 
+
+For example, if these were the only apples available, which would you choose?
+
+**Option 1**
+
+**Price**:  $ 10,000
+**Mileage**: 24,000
+**ModelYear**: 2017
+**powertrain**: Electric
+**range**:  400
+**MPG**: NA
+**Warranty**:  Yes
+**Charging Station Promotion**: Free
+
+**Option 2**
+
+**Price**:  $ 30,000
+**Mileage**: 14,000
+**ModelYear**: 2019
+**powertrain**: Gas
+**range**:  NA
+**MPG**: 25
+**Warranty**:  No
+**Charging Station Promotion**: NA
+
+**Option 3**
+
+**Price**:  $ 30,000
+**Mileage**: 14,000
+**ModelYear**: 2019
+**powertrain**: Electric
+**range**:  300
+**MPG**: NA
+**Warranty**:  No
+**Charging Station Promotion**: No Promotion
+
+---
+
+## Great work!
+
+We will now show you 8 sets of choice questions starting on the next page.
+
+---
+
+(1 of 4) If these were your only options, which would you choose?
+
+**Option 1**
+
+**Price**:  \$`r alt1$price` 
+**Mileage**: `r alt1$Mileage` 
+**ModelYear**: `r alt1$modelyear`
+**Powertrain**: `r alt1$powertrain`
+**Range**:  `r alt1$range`
+**MPG**: `r alt1$fuelEconomy`
+**Warranty**:  `r alt1$Warranty`
+**Charging Station Promotion**: `r alt1$ChargingStation`
+
+**Option 2**
+
+**Price**: \$`r alt2$price` 
+**Mileage**: `r alt2$Mileage` 
+**ModelYear**: `r alt2$modelyear`
+**Powertrain**: `r alt2$powertrain`
+**Range**:  `r alt2$range`
+**MPG**: `r alt2$fuelEconomy`
+**Warranty**:  `r alt2$Warranty`
+**Charging Station Promotion**: `r alt2$ChargingStation`
+
+**Option 3**
+
+**Price**: \$`r alt3$price` 
+**Mileage**: `r alt3$Mileage` 
+**ModelYear**: `r alt3$modelyear`
+**Powertrain**: `r alt3$powertrain`
+**Range**:  `r alt3$range`
+**MPG**: `r alt3$fuelEconomy`
+**Warranty**:  `r alt3$Warranty`
+**Charging Station Promotion**: `r alt3$ChargingStation`
+
+## Nice job!
+
+We're almost done! We'd just like to ask just a few more questions about you which we will only use for analyzing our survey data.
+
+(1) In what year were you born?
+
+(Drop down menu including `Prefer not to say` and years `1920` - `2003`)
+
+(2) How many cars are currently present in your household?
+
+(Drop down menu including `Prefer not to say` and years `0` - `5`)
+
+(3) Do you currently or have you owned an electric vehicle?
+
+- Yes
+- No
+
+(4) What is your current gender identity?
+Different identity (please state):
+
+- Male
+- Female
+
+(5) I identify my race as (select all that apply):
+Different identity (please state):
+
+- Asian
+- African American or Black
+- White (Not of Hispanic or Latino origin)
+- Hispanic or Latino
+- American Indian or Alaska Native
+- Native Hawaiian or Pacific Islander
+- Prefer not to say
+
+(6) What is your annual household income (from all sources) before taxes and other deductions from pay?
+
+- Less than $10,000
+- $10,000 - $14,999
+- $15,000 - $24,999
+- $25,000 - $34,999
+- $35,000 - $49,999
+- $50,000 - $74,999
+- $75,000 - $99,999
+- $100,000 - $149,999
+- $150,000 - $199,999
+- $200,000 or more
+- Prefer not to say
+
+Please let us know if you have any other thoughts or feedback on this survey.
+
+Your feedback will help us make future improvements :)
+
+(Open text response)
+
+---
+
+```{r, include=FALSE}
+completionCode <- round(runif(1, 10^5, 10^6))
+```
+
+### Your completion code is: `r completionCode`
+
+Finish
+
