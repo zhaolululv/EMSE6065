@@ -116,7 +116,7 @@ We will now show you 8 sets of choice questions starting on the next page.
 
 [mc_button type question with the following three options]
 
-(1 of 4) If these were your only options, which would you choose?
+(1 of 8) If these were your only options, which would you choose?
 
 ```{r, include=FALSE}
 library(dplyr)

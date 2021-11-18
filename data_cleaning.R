@@ -66,52 +66,6 @@ head(data)
 
 # Filter out bad responses ---------
 
-nrow(data)
-
-# Drop people who got screened out
-data <- data %>% 
-    filter(!is.na(screenout), screenout == 2)
-nrow(data)
-
-# Drop anyone who didn't complete all choice questions
-data <- data %>% 
-  filter(!is.na(cbc1)) %>% 
-  filter(!is.na(cbc2)) %>% 
-  filter(!is.na(cbc3)) %>% 
-  filter(!is.na(cbc4)) %>% 
-  filter(!is.na(cbc5)) %>% 
-  filter(!is.na(cbc6)) %>% 
-  filter(!is.na(cbc7)) %>% 
-  filter(!is.na(cbc8))
-nrow(data)
-
-# Drop respondents who went too fast
-data <- data %>% 
-    mutate(
-        # First replace NA values with 0 seconds
-        time_sec_p1 = ifelse(is.na(time_sec_p1), 0, time_sec_p1),
-        time_sec_p2 = ifelse(is.na(time_sec_p2), 0, time_sec_p2),
-        time_sec_p3 = ifelse(is.na(time_sec_p3), 0, time_sec_p3),
-        # Now compute the total time
-        time_min_total = (time_sec_p1 + time_sec_p2 + time_sec_p3) / 60
-    )
-# Look at summary of completion times
-summary(data$time_min_total)
-# Drop anyone who finished in under the 10th percentile of completion times
-time_10 <- quantile(data$time_min_total, 0.1)
-nrow(data)
-data <- data %>% 
-    filter(time_min_total >= time_10)
-nrow(data)
-
-# Drop respondents that got the attention check question wrong
-data <- data %>% 
-  filter(cbcPractice == 2)
-nrow(data)
-
-
-
-
 
 # Create choice data ---------
 
