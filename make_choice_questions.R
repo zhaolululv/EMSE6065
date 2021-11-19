@@ -54,7 +54,10 @@ bad_doe <- survey_labeled %>%
   distinct(respID)
   
 survey_labeled <- survey_labeled %>% 
-  filter(respID%notin%bad_doe$respID)
+  filter(respID%notin%bad_doe$respID) 
+for (r in 1:nrow(survey_labeled)) {
+    survey_labeled[r,"respID"] <-  (r-1)%/%24+1 
+}  
 
 survey_labeled <- survey_labeled %>%
   mutate(ChargingStation=ifelse(powertrain_Electric==1,ChargingStation,"No Promotion"),
